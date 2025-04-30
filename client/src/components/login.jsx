@@ -30,6 +30,8 @@ export default function Login(){
         } catch(error) {
           console.error(error);
         }
+
+        setLoginInfo({username:'', password:''});
     };
 
     return(
