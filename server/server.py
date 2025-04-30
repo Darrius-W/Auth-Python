@@ -6,8 +6,8 @@ app = FastAPI()
 
 # Contact form data model
 class LoginData(BaseModel):
-    userName: str
-    userPass: str
+    username: str
+    password: str
 
 # All domains to allow CORS
 origins = [
@@ -28,7 +28,5 @@ app.add_middleware(
 
 # Get Login data
 @app.post('/authLogin')
-async def login(userName: str = Form(...), userPass: str = Form(...)):
-    print("here")
-    #user = LoginData(userName=username, userPass=password)
-    print("Username: %s\nPassword: %s" % (userName, userPass))
+async def login(data: LoginData):
+    print("Username: %s\nPassword: %s" % (data.username, data.password))
