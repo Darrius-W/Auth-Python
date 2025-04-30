@@ -1,45 +1,31 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Client-side dependencies
+client/node_modules/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# Server-side Python virtual environment
+server/venv/
+server/.venv/
 
-# testing
-/coverage
-
-# production
-/build
-dist/
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.development
-.env.test.local
-.env.production.local
-.env.production
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# IDE config
-.vscode/
-*.swp
-
-# Python
-venv/
+# Common Python ignores
 *.pyc
 __pycache__/
 
-# Environment and secrets
-.env
+# Node logs and build
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+client/coverage/
+client/build/
+client/dist/
+
+# VSCode and environment files
+.vscode/
+.env*
+.DS_Store
+*.log
+*.pid
+*.swp
+
+# Database and secrets
 instance/
 *.db
 *.sqlite3
-
-# Cache and logs
-*.log
-*.pid
