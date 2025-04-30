@@ -1,16 +1,13 @@
 # server/api/auth.py
 
 from fastapi import APIRouter
-from pydantic import BaseModel
+from schemas.auth import LoginData
+from utils.security import hash_password
 
 router = APIRouter()
-
-# Contact form data model
-class LoginData(BaseModel):
-    username: str
-    password: str
 
 # Get Login data
 @router.post('/authLogin')
 async def login(data: LoginData):
-    print("Username: %s\nPassword: %s" % (data.username, data.password))
+    hashed_password = hash_password(data.password)
+    print("Username: %s\nPassword: %s" % (data.username, hashed_password))
