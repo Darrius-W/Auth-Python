@@ -1,13 +1,10 @@
-from fastapi import FastAPI, Form
+# server/main.py
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from api.auth import router as auth_router
 
 app = FastAPI()
-
-# Contact form data model
-class LoginData(BaseModel):
-    username: str
-    password: str
 
 # All domains to allow CORS
 origins = [
@@ -26,7 +23,5 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 
-# Get Login data
-@app.post('/authLogin')
-async def login(data: LoginData):
-    print("Username: %s\nPassword: %s" % (data.username, data.password))
+# Include the API routes from the `api` module
+app.include_router(auth_router)
