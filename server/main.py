@@ -22,7 +22,6 @@ origins = [
     "http://localhost:3000",
     "http://localhost:8000/",
     "http://localhost:8000/addUser"
-    "http://localhost:8000/Signup"
 ]
 
 # Middleware configuration for Cross-Origin Resource Sharing
@@ -37,6 +36,8 @@ app.add_middleware(
 # Get Login data
 @app.post('/addUser')
 async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
+    # Verify that passwords match
+    
     new_user = User(
         username = data.username,
         hashed_password = hash_password(data.password)

@@ -5,8 +5,10 @@ import React, { useState } from 'react';
 export default function Signup(){
     const [userInfo, setUserInfo] = useState({
         username: '',
-        password: ''
+        password: '',
+        passwordConfirm: ''
     });
+    const [error, setError] = useState("");
     
     const handleChange = (e) => {
         const{ name, value } = e.target;
@@ -19,6 +21,13 @@ export default function Signup(){
     const handleSignup = async (e) => {
         e.preventDefault();
     
+        // Check if passwords match
+        if (userInfo.password !== userInfo.passwordConfirm){
+          setError("Passwords do not match!");
+          return;
+        }
+        setError("")
+
         try{
           const response = await axios.post('http://localhost:8000/addUser', userInfo, { withCredentials: true}, {
             headers: {
@@ -31,7 +40,7 @@ export default function Signup(){
           console.error(error);
         }
 
-        setUserInfo({username:'', password:''});
+        setUserInfo({username:'', password:'', passwordConfirm:''});
     };
 
     return(
@@ -42,9 +51,10 @@ export default function Signup(){
                 <input type="text" name="username" id="username" value={userInfo.username} onChange={handleChange} autoComplete='off' placeholder="Enter username"/><br />
                 <label for="password">Password:</label><br />
                 <input type="password" name="password" id="password" value={userInfo.password} onChange={handleChange} autoComplete='off' placeholder="Enter password"/><br />
-                <label for="confirm-password">Confirm Password:</label><br />
-                <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm password"/><br />
-                <button type="submit" id="signup-btn">Signup</button>
+                <label for="passwordConfirm">Confirm Password:</label><br />
+                <input type="password" name="passwordConfirm" id="passwordConfirm" value={userInfo.passwordConfirm} onChange={handleChange} autoComplete='off' placeholder="Confirm password"/><br />
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                <button type="submit" id="signup-btn">Create Account</button>
             </form><br />
             <Link to="/">Login</Link>
         </div>
