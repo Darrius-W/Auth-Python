@@ -20,7 +20,7 @@ export default function Login(){
         e.preventDefault();
     
         try{
-          const response = await axios.post('http://localhost:8000/authLogin', loginInfo, { withCredentials: true}, {
+          const response = await axios.post('http://localhost:8000/login', loginInfo, { withCredentials: true}, {
             headers: {
               "Content-Type": "application/json",
             },

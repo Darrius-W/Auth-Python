@@ -6,12 +6,16 @@ from sqlalchemy.orm import Session
 from db.database import user_hash_table#, SessionLocal, engine, Base, get_db
 from models.models import User
 from pydantic import BaseModel
-from utils.security import hash_password
+from utils.security import hash_password, verify_password
 
 class NewUserData(BaseModel):
     username: str
     password: str
     passwordConfirm: str
+
+class UserLoginData(BaseModel):
+    username: str
+    password: str
 
 app = FastAPI()
 
@@ -34,7 +38,16 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 
-# Get Login data
+# Validate User
+@app.post('/login')
+async def validateUser(data: UserLoginData):
+    if data.username in user_hash_table:
+        if verify_password(data.password, user_hash_table[data.username]):
+            print("Valid user")
+    else:
+        raise HTTPException(status_code=401, details="Invalid Credentials")
+
+# Create new user
 @app.post('/addUser')
 async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
     # Verify that passwords match
