@@ -1,6 +1,6 @@
 # server/main.py
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from db.database import user_hash_table#, SessionLocal, engine, Base, get_db
@@ -11,6 +11,7 @@ from utils.security import hash_password
 class NewUserData(BaseModel):
     username: str
     password: str
+    passwordConfirm: str
 
 app = FastAPI()
 
@@ -37,6 +38,8 @@ app.add_middleware(
 @app.post('/addUser')
 async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
     # Verify that passwords match
+    if data.password != data.passwordConfirm:
+        raise HTTPException(status_code=400, detail="Passwords do not match")
     
     new_user = User(
         username = data.username,
