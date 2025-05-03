@@ -41,7 +41,7 @@ export default function Login(){
                 <label for="username">Username:</label><br />
                 <input type="text" name="username" id="username" value={loginInfo.username} onChange={handleChange} autoComplete='off' placeholder="Enter username"/><br />
                 <label for="password">Password:</label><br />
-                <input type="password" name="password" id="password" value={loginInfo.password} onChange={handleChange} autoComplete='off'  placeholder="Enter password"/><br />
+                <input type="password" name="password" id="password" value={loginInfo.password} onChange={handleChange} autoComplete='off' placeholder="Enter password"/><br />
                 <button type="submit" id="login-btn">Login</button>
             </form><br />
             <Link to="/Signup">Signup</Link>
