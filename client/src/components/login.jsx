@@ -25,10 +25,9 @@ export default function Login(){
               "Content-Type": "application/json",
             },
           });
-          
-          console.log(response.data);
+          alert(response.data.message)
         } catch(error) {
-          console.error(error);
+          alert(error.response.data.detail)
         }
 
         setLoginInfo({username:'', password:''});

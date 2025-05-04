@@ -32,12 +32,11 @@ export default function Signup(){
           const response = await axios.post('http://localhost:8000/addUser', userInfo, { withCredentials: true}, {
             headers: {
               "Content-Type": "application/json",
-            },
+            }
           });
-          
-          console.log(response.data);
+          alert(response.data.message)
         } catch(error) {
-          console.error(error);
+          alert(error.response.data.detail)
         }
 
         setUserInfo({username:'', password:'', passwordConfirm:''});

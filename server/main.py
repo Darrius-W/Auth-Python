@@ -26,7 +26,8 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "http://localhost:8000/",
-    "http://localhost:8000/addUser"
+    "http://localhost:8000/addUser",
+    "http://localhost:8000/login"
 ]
 
 # Middleware configuration for Cross-Origin Resource Sharing
@@ -43,9 +44,11 @@ app.add_middleware(
 async def validateUser(data: UserLoginData):
     if data.username in user_hash_table:
         if verify_password(data.password, user_hash_table[data.username]):
-            print("Valid user")
+            pass
     else:
-        raise HTTPException(status_code=401, details="Invalid Credentials")
+        raise HTTPException(status_code=401, detail="Invalid Credentials")
+    
+    return ({"message": "Login Successful"})
 
 # Create new user
 @app.post('/addUser')
@@ -53,6 +56,9 @@ async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
     # Verify that passwords match
     if data.password != data.passwordConfirm:
         raise HTTPException(status_code=400, detail="Passwords do not match")
+    
+    if data.username in user_hash_table:
+        raise HTTPException(status_code=409, detail="Username Taken")
     
     new_user = User(
         username = data.username,
@@ -66,4 +72,5 @@ async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
     db.refresh(new_user) # Get the ID and new data
     '''
     print(user_hash_table)
-    return {"id": new_user.id, "username": new_user.username}
+    return {"message": "Signup Successful"}
+    #return {"id": new_user.id, "username": new_user.username}
