@@ -27,7 +27,8 @@ origins = [
     "http://localhost:3000",
     "http://localhost:8000/",
     "http://localhost:8000/addUser",
-    "http://localhost:8000/login"
+    "http://localhost:8000/login",
+    "http://localhost:8000/logout"
 ]
 
 # Middleware configuration for Cross-Origin Resource Sharing
