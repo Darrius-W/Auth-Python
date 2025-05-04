@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import React, { useState } from 'react';
 
@@ -9,6 +9,7 @@ export default function Signup(){
         passwordConfirm: ''
     });
     const [error, setError] = useState("");
+    const navigate = useNavigate();
     
     const handleChange = (e) => {
         const{ name, value } = e.target;
@@ -35,6 +36,7 @@ export default function Signup(){
             }
           });
           alert(response.data.message)
+          navigate("/Profile")
         } catch(error) {
           alert(error.response.data.detail)
         }

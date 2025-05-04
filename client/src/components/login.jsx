@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import React, { useState } from 'react';
 
@@ -7,6 +7,7 @@ export default function Login(){
         username: '',
         password: ''
     });
+    const navigate = useNavigate();
     
     const handleChange = (e) => {
         const{ name, value } = e.target;
@@ -26,6 +27,7 @@ export default function Login(){
             },
           });
           alert(response.data.message)
+          navigate("/Profile")
         } catch(error) {
           alert(error.response.data.detail)
         }

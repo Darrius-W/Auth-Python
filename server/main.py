@@ -45,6 +45,8 @@ async def validateUser(data: UserLoginData):
     if data.username in user_hash_table:
         if verify_password(data.password, user_hash_table[data.username]):
             pass
+        else:
+            raise HTTPException(status_code=401, detail="Invalid Credentials")
     else:
         raise HTTPException(status_code=401, detail="Invalid Credentials")
     
