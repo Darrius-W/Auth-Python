@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from db.database import user_hash_table#, SessionLocal, engine, Base, get_db
 from models.models import User
 from pydantic import BaseModel
-from utils.security import hash_password, verify_password
+from utils.security import hash_password, verify_password, create_access_token, verify_token
 
 class NewUserData(BaseModel):
     username: str
@@ -50,7 +50,8 @@ async def validateUser(data: UserLoginData):
     else:
         raise HTTPException(status_code=401, detail="Invalid Credentials")
     
-    return ({"message": "Login Successful"})
+    token = create_access_token({"sub": data.username})
+    return ({"message": "Login Successful", "access_token": token, "token_type": "bearer"})
 
 # Create new user
 @app.post('/addUser')
@@ -74,5 +75,6 @@ async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
     db.refresh(new_user) # Get the ID and new data
     '''
     print(user_hash_table)
-    return {"message": "Signup Successful"}
+    token = create_access_token({"sub": new_user.username})
+    return {"message": "Signup Successful", "access_token": token, "token_type": "bearer"}
     #return {"id": new_user.id, "username": new_user.username}

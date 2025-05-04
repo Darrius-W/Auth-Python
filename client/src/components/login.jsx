@@ -27,6 +27,7 @@ export default function Login(){
             },
           });
           alert(response.data.message)
+          localStorage.setItem("token", response.data.access_token);
           navigate("/Profile")
         } catch(error) {
           alert(error.response.data.detail)
