@@ -8,15 +8,26 @@ export default function Profile(){
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        if (token){
-            try{
-                const decoded = jwtDecode(token);
-                setUsername(decoded.sub);
-            } catch(err){
-                console.error("Invalid Token");
-            }
+        if (!token){
+            navigate("/");
+            return;
         }
-    }, [])
+        try{
+            const decoded = jwtDecode(token);
+            const isExpired = decoded.exp * 1000 < Date.now();
+            
+            if (isExpired){
+                localStorage.removeItem("token");
+                navigate("/");
+            }
+            else{
+                setUsername(decoded.sub);
+            }
+        } catch(err){
+            console.error("Invalid Token");
+            navigate("/");
+        }
+    }, [navigate])
 
     const handleLogout = () => {
         localStorage.removeItem("token");

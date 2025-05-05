@@ -1,6 +1,6 @@
 # server/main.py
 
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from db.database import user_hash_table#, SessionLocal, engine, Base, get_db
@@ -27,8 +27,7 @@ origins = [
     "http://localhost:3000",
     "http://localhost:8000/",
     "http://localhost:8000/addUser",
-    "http://localhost:8000/login",
-    "http://localhost:8000/logout"
+    "http://localhost:8000/login"
 ]
 
 # Middleware configuration for Cross-Origin Resource Sharing
