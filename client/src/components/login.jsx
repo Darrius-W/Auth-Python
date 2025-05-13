@@ -9,6 +9,7 @@ export default function Login(){
     });
     const navigate = useNavigate();
     
+    // Handles input changes and updates the corresponding field in loginInfo
     const handleChange = (e) => {
         const{ name, value } = e.target;
         setLoginInfo((prev) =>({
@@ -17,23 +18,25 @@ export default function Login(){
         }));
     };
     
+    // Handles the submission of the login form, sending a POST request to the backend to validate the user
     const handleLogin = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // avoids page refresh upon submission
     
         try{
-          const response = await axios.post('http://localhost:8000/login', loginInfo, { withCredentials: true}, {
+          const response = await axios.post('http://localhost:8000/login', loginInfo, {
+            withCredentials: true, 
             headers: {
               "Content-Type": "application/json",
             },
           });
           alert(response.data.message)
-          localStorage.setItem("token", response.data.access_token);
+          localStorage.setItem("token", response.data.access_token); // store access token to remember user
           navigate("/Profile")
         } catch(error) {
           alert(error.response.data.detail)
         }
 
-        setLoginInfo({username:'', password:''});
+        setLoginInfo({username:'', password:''}); // resets form fields after submission
     };
 
     return(
@@ -41,9 +44,25 @@ export default function Login(){
             <form onSubmit={handleLogin}>
                 <h1>Login</h1>
                 <label for="username">Username:</label><br />
-                <input type="text" name="username" id="username" value={loginInfo.username} onChange={handleChange} autoComplete='off' placeholder="Enter username"/><br />
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  value={loginInfo.username}
+                  onChange={handleChange}
+                  autoComplete='off'
+                  placeholder="Enter username"
+                /><br />
                 <label for="password">Password:</label><br />
-                <input type="password" name="password" id="password" value={loginInfo.password} onChange={handleChange} autoComplete='off' placeholder="Enter password"/><br />
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={loginInfo.password}
+                  onChange={handleChange}
+                  autoComplete='off'
+                  placeholder="Enter password"
+                /><br />
                 <button type="submit" id="login-btn">Login</button>
             </form><br />
             <Link to="/Signup">Signup</Link>

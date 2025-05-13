@@ -1,6 +1,6 @@
 # server/main.py
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from db.database import user_hash_table#, SessionLocal, engine, Base, get_db
