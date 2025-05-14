@@ -30,13 +30,14 @@ export default function Signup(){
         setError("")
 
         try{
-          const response = await axios.post('http://localhost:8000/addUser', userInfo, { withCredentials: true}, {
+          const response = await axios.post('http://localhost:8000/addUser', userInfo, {
+            withCredentials: true, 
             headers: {
               "Content-Type": "application/json",
-            }
+            },
           });
           alert(response.data.message)
-          localStorage.setItem("token", response.data.access_token);
+          //localStorage.setItem("token", response.data.access_token);
           navigate("/Profile")
         } catch(error) {
           alert(error.response.data.detail)

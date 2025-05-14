@@ -30,7 +30,7 @@ export default function Login(){
             },
           });
           alert(response.data.message)
-          localStorage.setItem("token", response.data.access_token); // store access token to remember user
+          //localStorage.setItem("token", response.data.access_token); // store access token to remember user
           navigate("/Profile")
         } catch(error) {
           alert(error.response.data.detail)

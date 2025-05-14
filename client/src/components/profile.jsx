@@ -1,13 +1,29 @@
 import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 export default function Profile(){
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const checkAuth = async () => {
+            try {
+              const res = await axios.get("http://localhost:8000/protected", {
+                withCredentials: true,
+              });
+              setUsername(res.data.username);
+            } catch (err) {
+              console.error("Not authenticated", err);
+              navigate("/");
+            }
+          };
+      
+          checkAuth();
+
+
+        /*const token = localStorage.getItem("token");
         if (!token){
             navigate("/");
             return;
@@ -26,7 +42,7 @@ export default function Profile(){
         } catch(err){
             console.error("Invalid Token");
             navigate("/");
-        }
+        }*/
     }, [navigate])
 
     const handleLogout = () => {
