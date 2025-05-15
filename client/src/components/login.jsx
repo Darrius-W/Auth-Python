@@ -21,6 +21,12 @@ export default function Login(){
     // Handles the submission of the login form, sending a POST request to the backend to validate the user
     const handleLogin = async (e) => {
         e.preventDefault(); // avoids page refresh upon submission
+
+        // Ensure input is not blank
+        if (!loginInfo.username || !loginInfo.password){
+          alert("Username and password cannot be empty");
+          return;
+        }
     
         try{
           const response = await axios.post('http://localhost:8000/login', loginInfo, {
@@ -30,7 +36,6 @@ export default function Login(){
             },
           });
           alert(response.data.message)
-          //localStorage.setItem("token", response.data.access_token); // store access token to remember user
           navigate("/Profile")
         } catch(error) {
           alert(error.response.data.detail)

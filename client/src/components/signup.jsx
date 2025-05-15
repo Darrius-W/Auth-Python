@@ -21,6 +21,12 @@ export default function Signup(){
     
     const handleSignup = async (e) => {
         e.preventDefault();
+
+        // Ensure input is not blank
+        if (!userInfo.username || !userInfo.password || !userInfo.passwordConfirm){
+          alert("Username and password cannot be empty");
+          return;
+        }
     
         // Check if passwords match
         if (userInfo.password !== userInfo.passwordConfirm){
