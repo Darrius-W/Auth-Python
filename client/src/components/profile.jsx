@@ -22,27 +22,6 @@ export default function Profile(){
       
           checkAuth();
 
-
-        /*const token = localStorage.getItem("token");
-        if (!token){
-            navigate("/");
-            return;
-        }
-        try{
-            const decoded = jwtDecode(token);
-            const isExpired = decoded.exp * 1000 < Date.now();
-            
-            if (isExpired){
-                localStorage.removeItem("token");
-                navigate("/");
-            }
-            else{
-                setUsername(decoded.sub);
-            }
-        } catch(err){
-            console.error("Invalid Token");
-            navigate("/");
-        }*/
     }, [navigate])
 
     const handleLogout = () => {

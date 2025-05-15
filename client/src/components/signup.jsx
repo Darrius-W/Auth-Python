@@ -11,6 +11,7 @@ export default function Signup(){
     const [error, setError] = useState("");
     const navigate = useNavigate();
     
+    // Handles input changes and updates the corresponding field in userInfo
     const handleChange = (e) => {
         const{ name, value } = e.target;
         setUserInfo((prev) =>({
@@ -19,8 +20,9 @@ export default function Signup(){
         }));
     };
     
+    // Handles the submission of the signup form, sending a POST request to the backend to create a new user
     const handleSignup = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // avoids page refresh upon submission
 
         // Ensure input is not blank
         if (!userInfo.username || !userInfo.password || !userInfo.passwordConfirm){
@@ -43,25 +45,48 @@ export default function Signup(){
             },
           });
           alert(response.data.message)
-          //localStorage.setItem("token", response.data.access_token);
           navigate("/Profile")
         } catch(error) {
           alert(error.response.data.detail)
         }
 
-        setUserInfo({username:'', password:'', passwordConfirm:''});
+        setUserInfo({username:'', password:'', passwordConfirm:''}); // resets form fields after submission
     };
 
     return(
         <div>
             <form onSubmit={handleSignup}>
                 <h1>Signup</h1>
-                <label for="username">Username:</label><br />
-                <input type="text" name="username" id="username" value={userInfo.username} onChange={handleChange} autoComplete='off' placeholder="Enter username"/><br />
-                <label for="password">Password:</label><br />
-                <input type="password" name="password" id="password" value={userInfo.password} onChange={handleChange} autoComplete='off' placeholder="Enter password"/><br />
-                <label for="passwordConfirm">Confirm Password:</label><br />
-                <input type="password" name="passwordConfirm" id="passwordConfirm" value={userInfo.passwordConfirm} onChange={handleChange} autoComplete='off' placeholder="Confirm password"/><br />
+                <label htmlFor="username">Username:</label><br />
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  value={userInfo.username}
+                  onChange={handleChange}
+                  autoComplete='off'
+                  placeholder="Enter username"
+                /><br />
+                <label htmlFor="password">Password:</label><br />
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={userInfo.password}
+                  onChange={handleChange}
+                  autoComplete='off'
+                  placeholder="Enter password"
+                /><br />
+                <label htmlFor="passwordConfirm">Confirm Password:</label><br />
+                <input
+                  type="password"
+                  name="passwordConfirm"
+                  id="passwordConfirm"
+                  value={userInfo.passwordConfirm}
+                  onChange={handleChange}
+                  autoComplete='off'
+                  placeholder="Confirm password"
+                /><br />
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 <button type="submit" id="signup-btn">Create Account</button>
             </form><br />

@@ -48,7 +48,7 @@ export default function Login(){
         <div>
             <form onSubmit={handleLogin}>
                 <h1>Login</h1>
-                <label for="username">Username:</label><br />
+                <label htmlFor="username">Username:</label><br />
                 <input
                   type="text"
                   name="username"
@@ -58,7 +58,7 @@ export default function Login(){
                   autoComplete='off'
                   placeholder="Enter username"
                 /><br />
-                <label for="password">Password:</label><br />
+                <label htmlFor="password">Password:</label><br />
                 <input
                   type="password"
                   name="password"
