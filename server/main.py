@@ -1,6 +1,6 @@
 # server/main.py
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
@@ -29,7 +29,8 @@ origins = [
     "http://localhost:8000/",
     "http://localhost:8000/addUser",
     "http://localhost:8000/login",
-    "http://localhost:8000/protected"
+    "http://localhost:8000/protected",
+    "http://localhost:8000/logout"
 ]
 
 # Middleware configuration for Cross-Origin Resource Sharing
@@ -95,8 +96,8 @@ async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
 def protected_route(username: str = Depends(get_current_user)):
     print(username)
     return {"username": username["username"]}
-'''
-def protected_route(user: dict = Depends(get_current_user)):
-    print(user)
-    return {"username": user["sub"]}#{"message": f"Welcome, {user}!"}
-'''
+
+@app.post("/logout")
+def logout_user(response: Response):
+    response.delete_cookie("access_token", path="/")
+    return {"message": "Logged out successfully"}

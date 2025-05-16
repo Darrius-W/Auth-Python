@@ -30,7 +30,7 @@ export default function Login(){
     
         try{
           const response = await axios.post('http://localhost:8000/login', loginInfo, {
-            withCredentials: true, 
+            withCredentials: true, // Send cookies with request
             headers: {
               "Content-Type": "application/json",
             },
