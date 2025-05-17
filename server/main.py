@@ -3,17 +3,19 @@
 from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from sqlalchemy.orm import Session
+#from sqlalchemy.orm import Session
 from db.database import user_hash_table#, SessionLocal, engine, Base, get_db
 from models.models import User
 from pydantic import BaseModel
-from utils.security import hash_password, verify_password, create_access_token, verify_token, get_current_user
+from utils.security import hash_password, verify_password, create_access_token, get_current_user
 
+# Request model for signup
 class NewUserData(BaseModel):
     username: str
     password: str
     passwordConfirm: str
 
+# Request model for login
 class UserLoginData(BaseModel):
     username: str
     password: str
@@ -25,7 +27,7 @@ app = FastAPI()
 
 # All domains to allow CORS
 origins = [
-    "http://localhost:3000",
+    "http://localhost:3000"
     "http://localhost:8000/",
     "http://localhost:8000/addUser",
     "http://localhost:8000/login",
@@ -42,7 +44,7 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 
-# Validate User
+# Authenticates a user and sets an Http-only cookie with a JWT access token
 @app.post('/login')
 async def validateUser(data: UserLoginData):
     if data.username in user_hash_table:
@@ -66,7 +68,7 @@ async def validateUser(data: UserLoginData):
     )
     return response
 
-# Create new user
+# Registers a new user and returns a token upon success
 @app.post('/addUser')
 async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
     # Verify that passwords match
@@ -80,7 +82,8 @@ async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
         username = data.username,
         hashed_password = hash_password(data.password)
     )
-    user_hash_table.update({new_user.username: new_user.hashed_password})# Adding user to temporary user DB/Hash table
+    # Simulate adding user to a database using hash table for temporary storage
+    user_hash_table.update({new_user.username: new_user.hashed_password})
     '''
     # Adding user to PostgreSQL DB
     db.add(new_user)
@@ -91,12 +94,14 @@ async def addUser(data: NewUserData):#, db: Session = Depends(get_db)):
     token = create_access_token({"sub": new_user.username})
     return {"message": "Signup Successful", "access_token": token, "token_type": "bearer"}
     #return {"id": new_user.id, "username": new_user.username}
-    
+
+# Returns the current user if token is valid    
 @app.get("/protected")
 def protected_route(username: str = Depends(get_current_user)):
     print(username)
     return {"username": username["username"]}
 
+# Clears access token and logs out user
 @app.post("/logout")
 def logout_user(response: Response):
     response.delete_cookie("access_token", path="/")
