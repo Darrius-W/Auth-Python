@@ -1,6 +1,6 @@
 # server/models/models.py
 
-# Creates a model for storage within the database
+# Creates a user model for storage within the database
 
 from sqlalchemy import Column, Integer, String
 from db.database import Base
