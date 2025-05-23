@@ -3,7 +3,7 @@
 # Creates a user model for storage within the database
 
 from sqlalchemy import Column, Integer, String
-from db.database import Base
+from server.db.database import Base
 
 class User(Base):
     __tablename__ = "users"

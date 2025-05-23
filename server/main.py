@@ -4,10 +4,10 @@ from fastapi import FastAPI, HTTPException, Depends, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 #from sqlalchemy.orm import Session
-from db.database import user_hash_table#, SessionLocal, engine, Base, get_db
-from models.models import User
+from server.db.database import user_hash_table#, SessionLocal, engine, Base, get_db
+from server.models.models import User
 from pydantic import BaseModel
-from utils.security import hash_password, verify_password, create_access_token, get_current_user
+from server.utils.security import hash_password, verify_password, create_access_token, get_current_user
 
 # Request model for signup
 class NewUserData(BaseModel):

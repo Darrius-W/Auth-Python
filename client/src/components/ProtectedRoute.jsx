@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 
 // A wrapper component that guards protected routes or componenets
