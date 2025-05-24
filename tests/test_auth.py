@@ -25,3 +25,14 @@ def test_signup_password_mismatch():
     
     assert response.status_code == 400
     assert response.json()["detail"] == "Passwords do not match"
+    
+# Testing successful login and ensuring token is received
+def test_login_success():
+    response = client.post("/login", json={
+        "username": "testuser",
+        "password": "testpassword"
+    })
+    
+    assert response.status_code == 200
+    assert response.json()["message"] == "Login Successful"
+    assert "access_token" in response.cookies
