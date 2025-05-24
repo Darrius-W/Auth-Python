@@ -47,3 +47,14 @@ def test_login_wrong_password():
     assert response.status_code == 401
     assert response.json()["detail"] == "Invalid Credentials"
     assert "access_token" not in response.cookies
+    
+# Testing login failure - Reason: non-existent user
+def test_login_nonexistent_user():
+    response = client.post("/login", json={
+        "username": "notauser",
+        "password": "notapassword"
+    })
+    
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Invalid Credentials"
+    assert "access_token" not in response.cookies
