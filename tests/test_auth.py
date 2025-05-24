@@ -36,3 +36,14 @@ def test_login_success():
     assert response.status_code == 200
     assert response.json()["message"] == "Login Successful"
     assert "access_token" in response.cookies
+    
+# Testing login failure - Reason: wrong password
+def test_login_wrong_password():
+    response = client.post("/login", json={
+        "username": "testuser",
+        "password": "testp4ssword"
+    })
+    
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Invalid Credentials"
+    assert "access_token" not in response.cookies
