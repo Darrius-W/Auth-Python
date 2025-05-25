@@ -110,3 +110,9 @@ def test_protected_route_with_valid_cookie():
     
     assert response.status_code == 200
     assert response.json()["username"] == "protecteduser"
+    
+# Testing protected route access without cookie
+def test_protected_without_cookie():
+    response = client.get("/protected")
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Not authenticated"
