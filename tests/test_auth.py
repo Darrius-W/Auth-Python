@@ -116,3 +116,18 @@ def test_protected_without_cookie():
     response = client.get("/protected")
     assert response.status_code == 401
     assert response.json()["detail"] == "Not authenticated"
+    
+    
+    
+    
+    
+# Testing protected route access with invalid token
+def test_protected_with_invalid_token():
+    # Set invalid JWT manually
+    client.cookies.set("access_token", "fake.token")
+    
+    # Access the protected route
+    response = client.get("/protected")
+    
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Token invalid or expired"
