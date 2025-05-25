@@ -131,3 +131,29 @@ def test_protected_with_invalid_token():
     
     assert response.status_code == 401
     assert response.json()["detail"] == "Token invalid or expired"
+    
+# Testing logout success, ensuring deletion of cookie
+def test_logout_deletes_cookie():
+    # Create test user and generate valid token
+    user_hash_table["logoutuser"] = hash_password("logoutpass")
+    token = create_access_token({"sub": "logoutuser"})
+    
+    # Set the token as a cookie
+    client.cookies.set("access_token", token)
+    
+    # Confirm access to protected route works before logout
+    response_before = client.get("/protected")
+    assert response_before.status_code == 200
+    
+    # Call logout
+    logout = client.post("/logout")
+    assert logout.status_code == 200
+    assert logout.json()["message"] == "Logged out successfully"
+    
+    # Manually clear cookie
+    client.cookies.clear()
+    
+    # Try accessing protected route again
+    response_after = client.get("/protected")
+    assert response_after.status_code == 401
+    assert response_after.json()["detail"] == "Not authenticated"
