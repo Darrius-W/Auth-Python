@@ -47,13 +47,13 @@ A full-stack web authentication system built using FastAPI and React, implementi
 ### 1. Clone the repo
 
 `git clone https://github.com/Darrius-W/Auth-Python.git`
-`cd Auth-Python`
+`cd FastAPI-React-Auth`
 
 ### 2. Setup the backend
 
 `cd server`  
-`python3 -m venv venv`  
-`source venv/bin/activate`  
+`python -m venv venv`  
+`venv\Scripts\activate`  
 `pip install -r requirements.txt`  
 `uvicorn main:app --reload`
 
