@@ -1,10 +1,9 @@
-# 🔐 Auth-Python – Token-Based Authentication with FastAPI & React
+# 🔐 FastAPI-React-Auth – Token-Based Authentication with FastAPI & React
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.95-green)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-18.2-blue)](https://reactjs.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/Darrius-W/Auth-Python/python-app.yml?branch=main)](https://github.com/Darrius-W/Auth-Python/actions)
 [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/Darrius-W/Auth-Python/actions)
 
 A full-stack web authentication system built using FastAPI and React, implementing secure JWT-based authentication with HTTP-only cookies, user registration, login, protected routes, and logout functionality.
@@ -47,27 +46,27 @@ A full-stack web authentication system built using FastAPI and React, implementi
 
 ### 1. Clone the repo
 
-git clone https://github.com/Darrius-W/Auth-Python.git  
-cd Auth-Python
+`git clone https://github.com/Darrius-W/Auth-Python.git`
+`cd Auth-Python`
 
 ### 2. Setup the backend
 
-cd server  
-python3 -m venv venv  
-source venv/bin/activate  
-pip install -r requirements.txt  
-uvicorn main:app --reload
+`cd server`  
+`python3 -m venv venv`  
+`source venv/bin/activate`  
+`pip install -r requirements.txt`  
+`uvicorn main:app --reload`
 
 ### 3. Setup the frontend
 
-cd client  
-npm install  
-npm start
+`cd client`  
+`npm install`  
+`npm start`
 
 ### 4. Run Tests
 
-cd server  
-pytest
+`cd server`  
+`pytest`
 
 ---
 
