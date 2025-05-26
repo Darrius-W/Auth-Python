@@ -1,5 +1,12 @@
 # 🔐 Auth-Python – Token-Based Authentication with FastAPI & React
 
+[![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.95-green)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18.2-blue)](https://reactjs.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/Darrius-W/Auth-Python/python-app.yml?branch=main)](https://github.com/Darrius-W/Auth-Python/actions)
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/Darrius-W/Auth-Python/actions)
+
 A full-stack web authentication system built using FastAPI and React, implementing secure JWT-based authentication with HTTP-only cookies, user registration, login, protected routes, and logout functionality.
 
 ---
